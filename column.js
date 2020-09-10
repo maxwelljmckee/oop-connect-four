@@ -1,12 +1,20 @@
 export class Column {
-    constructor() {
+  constructor() {
+    this.rows = ["", "", "", "", "", ""];
+  }
+
+  add(playerNum) {
+    for (let i = 5; i >= 0; i--) {
+      if (!this.rows[i]) {
+        this.rows[i] = playerNum;
+        return;
+      }
     }
-    add(playerNum) {
-        // stores token in bottom most entry
-    }
-    getTokenAt(rowIndex) {
-        // if !token return null
-        // returns 1 for player 1
-        // returns 2 for player 2
-    }
+  }
+
+  getTokenAt(rowIndex) {
+    // if !token return null
+    // returns 1 for player 1
+    // returns 2 for player 2
+  }
 }
