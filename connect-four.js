@@ -24,18 +24,25 @@ const updateUI = () => {
       let square = document.getElementById(`square-${row}-${col}`);
       let tokenValue = game.getTokenAt(row, col);
       square.innerHTML = "";
-      if (tokenValue === 1) {
-        let blackToken = document
-          .createElement("div")
-          .classList.add("token", "black");
+      if (tokenValue === 2) {
+        let blackToken = document.createElement("div")
+        blackToken.classList.add("token", "black");
         square.appendChild(blackToken);
-      } else if (tokenValue === 2) {
-        let redToken = document
-          .createElement("div")
-          .classList.add("token", "red");
+      } else if (tokenValue === 1) {
+        let redToken = document.createElement("div")
+        redToken.classList.add("token", "red");
         square.appendChild(redToken);
       }
     }
+  }
+
+  for (let i = 0; i <= 6; i++) {
+      let column = document.getElementById(`column-${i}`)
+      if (game.isColumnFull(i)) {
+          column.classList.add('full');
+      } else {
+          column.classList.remove('full');
+      }
   }
 };
 
@@ -44,7 +51,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
   const player1 = document.getElementById("player-1-name");
   const player2 = document.getElementById("player-2-name");
   const formHolder = document.getElementById("form-holder");
-  const clickTargets = document.getElementById("click-targets");
+  const clickTargets = document.querySelectorAll(".click-target");
 
   formHolder.addEventListener("keyup", (e) => {
     if (player1.value && player2.value) {
@@ -62,9 +69,11 @@ window.addEventListener("DOMContentLoaded", (e) => {
     updateUI();
   });
 
-  clickTargets.addEventListener("click", (e) => {
-    let colIndex = Number(e.target.id[7]);
-    updateUI();
-    game.playInColumn(colIndex);
-  });
+  clickTargets.forEach(el => {
+    el.addEventListener("click", (e) => {
+      let colIndex = Number(e.target.id[7]);
+      game.playInColumn(colIndex);
+      updateUI();
+    });
+  })
 });

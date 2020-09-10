@@ -13,8 +13,16 @@ export class Column {
   }
 
   getTokenAt(rowIndex) {
-    // if !token return null
-    // returns 1 for player 1
-    // returns 2 for player 2
+    if (this.rows[rowIndex] === 1) {
+        return 1;
+    } else if (this.rows[rowIndex] === 2) {
+        return 2;
+    } else  {
+        return null;
+    }
+  }
+
+  isFull() {
+      return this.rows.every(el => el);
   }
 }
