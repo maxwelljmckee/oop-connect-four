@@ -4,22 +4,21 @@ export class ColumnWinInspector {
   }
 
   inspect() {
+    let rows = this.column.rows
     let count = 0;
 
-    for (let i = 0; i < this.column.length - 1; i++) {
-      if (column[i] === column[i + 1]) {
-        // console.log(column[i]);
+    for (let i = rows.length - 1; i >= 0; i--) {
+      if (!rows[i]) {
+        count = 0
+      }
+      if (rows[i] === rows[i - 1]) {
         count++;
-        // console.log(count);
       } else {
-        count = 0;
+        return 0;
       }
       if (count === 3) {
-        // console.log(column[i]);
-        return this.column[i];
+        return rows[i];
       }
     }
-    // console.log(this.column);
-    return 0;
   }
 }

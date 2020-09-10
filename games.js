@@ -54,7 +54,6 @@ export class Game {
   checkForColumnWin() {
     this.columns.forEach((col) => {
       let inspector = new ColumnWinInspector(col);
-      console.log(inspector.inspect());
       if (inspector.inspect() === 1 || inspector.inspect() === 2) {
         this.winner = inspector.inspect();
         return;
