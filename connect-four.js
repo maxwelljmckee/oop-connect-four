@@ -10,12 +10,28 @@ const updateUI = () => {
     document.getElementById("board-holder").classList.remove("is-invisible");
     document.getElementById("game-name").innerHTML = game.getName();
   }
+
   if (game.currentPlayer === 1) {
     clickTargets.classList.add('red');
     clickTargets.classList.remove('black');
-} else {
+  } else {
     clickTargets.classList.add('black');
     clickTargets.classList.remove('red');
+  }
+
+  for (let row = 0; row <= 5; row++) {
+      for (let col = 0; col <=6; col++) {
+        let square = document.getElementById(`square-${row}-${col}`);
+        let tokenValue = game.getTokenAt(row, col);
+        square.innerHTML = '';
+        if (tokenValue === 1) {
+            let blackToken = document.createElement('div').classList.add('token', 'black');
+            square.appendChild(blackToken);
+        } else if (tokenValue === 2) {
+            let redToken = document.createElement('div').classList.add('token', 'red');
+            square.appendChild('redToken');
+        }
+      }
   }
 };
 
@@ -43,7 +59,8 @@ window.addEventListener("DOMContentLoaded", (e) => {
   });
 
   clickTargets.addEventListener('click', e => {
+      let colIndex = Number(e.target.id[7])
       updateUI();
-      game.playInColumn();
+      game.playInColumn(colIndex);
   })
 });
