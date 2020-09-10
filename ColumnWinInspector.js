@@ -1,3 +1,4 @@
+
 export class ColumnWinInspector {
   constructor(column) {
     this.column = column;

@@ -1,3 +1,4 @@
+
 export class Column {
   constructor() {
     this.rows = ["", "", "", "", "", ""];
