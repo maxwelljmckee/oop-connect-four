@@ -70,7 +70,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
   });
 
   const clickTargetHandler = (e) => {
-    const winner = game.winner
+    const winner = game.winner;
     let colIndex = Number(e.target.id[7]);
     game.playInColumn(colIndex);
     if (!winner) {

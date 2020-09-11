@@ -1,5 +1,6 @@
 import { Column } from "./column.js";
 import { ColumnWinInspector } from "./ColumnWinInspector.js";
+import { RowWinInspector } from "./rowWinInspector.js";
 
 export class Game {
   constructor(player1, player2) {
@@ -31,7 +32,10 @@ export class Game {
     else this.currentPlayer = 1;
 
     this.checkForTie();
-    if (this.winner === 0) this.checkForColumnWin();
+    if (this.winner === 0) {
+      this.checkForRowWin();
+      this.checkForColumnWin();
+    }
   }
 
   getTokenAt(rowIndex, colIndex) {
@@ -62,5 +66,19 @@ export class Game {
         return;
       }
     });
+  }
+  checkForRowWin() {
+    if (this.winner) {
+      return;
+    }
+
+    for (let i = 0; i < 4; i++) {
+      let colGroup = this.columns.slice(i, i + 4);
+      let inspector = new RowWinInspector(...colGroup);
+      if (inspector.inspect()) {
+        this.winner = inspector.inspect();
+        break;
+      }
+    }
   }
 }
