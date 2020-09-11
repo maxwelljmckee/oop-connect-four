@@ -39,13 +39,16 @@ export class Game {
   }
 
   isColumnFull(colIndex) {
-    if (this.winner === 1 || this.winner === 2) {
+    if (this.winner !== 0) {
       return true;
     }
     return this.columns[colIndex].isFull();
   }
 
   checkForTie() {
+    if (this.winner !== 0) {
+      return;
+    }
     if (this.columns.every((col, i) => this.isColumnFull(i))) {
       this.winner = 3;
     }

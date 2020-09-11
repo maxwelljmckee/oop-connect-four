@@ -25,11 +25,11 @@ const updateUI = () => {
       let tokenValue = game.getTokenAt(row, col);
       square.innerHTML = "";
       if (tokenValue === 2) {
-        let blackToken = document.createElement("div")
+        let blackToken = document.createElement("div");
         blackToken.classList.add("token", "black");
         square.appendChild(blackToken);
       } else if (tokenValue === 1) {
-        let redToken = document.createElement("div")
+        let redToken = document.createElement("div");
         redToken.classList.add("token", "red");
         square.appendChild(redToken);
       }
@@ -37,12 +37,15 @@ const updateUI = () => {
   }
 
   for (let i = 0; i <= 6; i++) {
-      let column = document.getElementById(`column-${i}`)
-      if (game.isColumnFull(i)) {
-          column.classList.add('full');
-      } else {
-          column.classList.remove('full');
-      }
+    let column = document.getElementById(`column-${i}`);
+    if (game.isColumnFull(i)) {
+      column.removeEventListener("click", (e) => {
+        console.log(e.target.id);
+      });
+      column.classList.add("full");
+    } else {
+      column.classList.remove("full");
+    }
   }
 };
 
@@ -69,11 +72,13 @@ window.addEventListener("DOMContentLoaded", (e) => {
     updateUI();
   });
 
-  clickTargets.forEach(el => {
-    el.addEventListener("click", (e) => {
-      let colIndex = Number(e.target.id[7]);
-      game.playInColumn(colIndex);
-      updateUI();
-    });
-  })
+  const clickTargetHandler = (e) => {
+    let colIndex = Number(e.target.id[7]);
+    game.playInColumn(colIndex);
+    updateUI();
+  };
+
+  clickTargets.forEach((el) => {
+    el.addEventListener("click", clickTargetHandler);
+  });
 });
