@@ -34,6 +34,7 @@ const updateUI = () => {
         square.appendChild(redToken);
       }
     }
+    localStorage.setItem('game-status', JSON.stringify(game))
   }
 
   for (let i = 0; i <= 6; i++) {
@@ -52,6 +53,20 @@ window.addEventListener("DOMContentLoaded", (e) => {
   const player2 = document.getElementById("player-2-name");
   const formHolder = document.getElementById("form-holder");
   const clickTargets = document.querySelectorAll(".click-target");
+  const savedGame = JSON.parse(localStorage.getItem('game-status'));
+  if (savedGame) {
+    game = new Game(savedGame.player1, savedGame.player2)
+    game.currentPlayer = savedGame.currentPlayer;
+    game.rows = savedGame.rows;
+    game.winner = savedGame.winner;
+    game.reloadColumns();
+    if (game.winner) {
+      localStorage.removeItem('game-status')
+      location.reload();
+    } else {
+      updateUI();
+    } 
+  }
 
   formHolder.addEventListener("keyup", (e) => {
     if (player1.value && player2.value) {
@@ -76,6 +91,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
     if (!winner) {
       updateUI();
     }
+    localStorage
   };
 
   clickTargets.forEach((el) => {

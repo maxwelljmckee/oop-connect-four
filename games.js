@@ -9,11 +9,13 @@ export class Game {
     this.player2 = player2;
     this.currentPlayer = 1;
     this.columns = [];
+    this.rows = [];
     this.winner = 0;
 
     for (let i = 0; i < 7; i++) {
       this.columns.push(new Column());
     }
+    this.columns.forEach(col => this.rows.push(col.rows))
   }
 
   getName() {
@@ -38,6 +40,12 @@ export class Game {
       this.checkForColumnWin();
       this.checkForDiagonalWin();
     }
+  }
+
+  reloadColumns() {
+    this.columns.forEach((col, i) => {
+      col.rows = this.rows[i];
+    })
   }
 
   getTokenAt(rowIndex, colIndex) {
