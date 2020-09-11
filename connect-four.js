@@ -39,9 +39,6 @@ const updateUI = () => {
   for (let i = 0; i <= 6; i++) {
     let column = document.getElementById(`column-${i}`);
     if (game.isColumnFull(i)) {
-      column.removeEventListener("click", (e) => {
-        console.log(e.target.id);
-      });
       column.classList.add("full");
     } else {
       column.classList.remove("full");
@@ -73,9 +70,12 @@ window.addEventListener("DOMContentLoaded", (e) => {
   });
 
   const clickTargetHandler = (e) => {
+    const winner = game.winner
     let colIndex = Number(e.target.id[7]);
     game.playInColumn(colIndex);
-    updateUI();
+    if (!winner) {
+      updateUI();
+    }
   };
 
   clickTargets.forEach((el) => {
