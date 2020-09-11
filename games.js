@@ -18,6 +18,7 @@ export class Game {
     this.columns.forEach(col => this.rows.push(col.rows))
   }
 
+  //////// BASIC METHODS ////////
   getName() {
     if (this.winner === 3) {
       return `${this.player1} ties with ${this.player2}`;
@@ -27,6 +28,19 @@ export class Game {
       return `Player ${this.winner} Wins!!!!`;
     }
   }
+
+  getTokenAt(rowIndex, colIndex) {
+    return this.columns[colIndex].getTokenAt(rowIndex);
+  }
+
+  isColumnFull(colIndex) {
+    if (this.winner !== 0) {
+      return true;
+    }
+    return this.columns[colIndex].isFull();
+  }
+
+  ///////////// PRIMARY GAMEPLAY FUNCTION ///////////
 
   playInColumn(colIndex) {
     this.columns[colIndex].add(this.currentPlayer);
@@ -42,22 +56,7 @@ export class Game {
     }
   }
 
-  reloadColumns() {
-    this.columns.forEach((col, i) => {
-      col.rows = this.rows[i];
-    })
-  }
-
-  getTokenAt(rowIndex, colIndex) {
-    return this.columns[colIndex].getTokenAt(rowIndex);
-  }
-
-  isColumnFull(colIndex) {
-    if (this.winner !== 0) {
-      return true;
-    }
-    return this.columns[colIndex].isFull();
-  }
+  ///////////// GAME STATUS CHECKERS /////////////
 
   checkForTie() {
     if (this.winner !== 0) {
@@ -71,7 +70,7 @@ export class Game {
   checkForColumnWin() {
     this.columns.forEach((col) => {
       let inspector = new ColumnWinInspector(col);
-      if (inspector.inspect() === 1 || inspector.inspect() === 2) {
+      if (inspector.inspect()) {
         this.winner = inspector.inspect();
         return;
       }
@@ -107,5 +106,11 @@ export class Game {
       }
     }
   }
-  
+
+  //////// UPDATES COLUMN DATA FROM LOCAL STORAGE ON PAGE RELOAD ////////
+  reloadColumns() {
+    this.columns.forEach((col, i) => {
+      col.rows = this.rows[i];
+    })
+  } 
 }

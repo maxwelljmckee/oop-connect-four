@@ -6,7 +6,7 @@ export class ColumnWinInspector {
   inspect() {
     let rows = this.column.rows
     let count = 0;
-
+    
     for (let i = rows.length - 1; i >= 0; i--) {
       if (!rows[i]) {
         count = 0
@@ -14,11 +14,12 @@ export class ColumnWinInspector {
       if (rows[i] === rows[i - 1]) {
         count++;
       } else {
-        return 0;
+        count = 0
       }
       if (count === 3) {
         return rows[i];
       }
     }
+    return 0;
   }
 }

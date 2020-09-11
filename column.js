@@ -4,6 +4,7 @@ export class Column {
     this.rows = ["", "", "", "", "", ""];
   }
 
+  ////// POPULATE ROW ARRAY WITH CURRENTPLAYER NUMBER ///////
   add(playerNum) {
     for (let i = 5; i >= 0; i--) {
       if (!this.rows[i]) {
@@ -13,6 +14,7 @@ export class Column {
     }
   }
 
+  //////// IDENTIFY TOKEN AT INDEX /////////
   getTokenAt(rowIndex) {
     if (this.rows[rowIndex] === 1) {
         return 1;
